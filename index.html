@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/style.css" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script type="module" src="https://unpkg.com/cally"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Dashboard</title>
+</head>
+<body class="bg-[#F5FAF6] min-h-screen overflow-x-hidden">
+  <!-- sidebar -->
+  <div class="flex w-full min-w-0">
+    <aside class="bg-white border-r border-[#E0E0E0] shadow-sm w-64 flex flex-col">
+      <div>
+        <div class="flex items-center h-20 border-b border-[#E0E0E0] px-8 justify-center">
+          <a class="text-[#57CCB1] font-extrabold text-2xl ">
+            Dash<span class="text-[#2E7363]">manage</span>
+          </a>
+        </div>
+
+        <ul class="menu w-full p-0 m-0">
+          <li class="font-medium py-4 menu-title text-[#A0BDB1] border-b border-[#E0E0E0] text-[10px]">MAIN</li>
+          <li>
+            <a href="index.html"
+               class="flex items-center gap-3 px-4 py-3 border border-[#E0E0E0] bg-[#D5F2EB] text-[#57CCB1] hover:bg-[#D5F2EB] hover:text-[#57CCB1] transition-colors"
+               id="menu-dashboard">
+              <i data-lucide="layout-dashboard" class="h-5 w-5 text-[#57CCB1]"></i>
+              <span class="text-sm font-semibold">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="py-4 menu-title text-[#A0BDB1] border-b border-[#E0E0E0] text-[10px]">MANAGE</li>
+          <li>
+            <a href="lresign.html"
+               class="flex items-center gap-3 px-4 py-3 border border-[#E0E0E0] text-[#737374] hover:bg-[#D5F2EB] hover:text-[#57CCB1]"
+               id="menu-pegawai">
+              <i data-lucide="users" class="h-5 w-5"></i>
+              <span class="text-sm font-semibold">Pegawai Baru & Resign</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="kinerjalembur.html"
+               class="flex items-center gap-3 px-4 py-3 border border-[#E0E0E0] text-[#737374] hover:bg-[#D5F2EB] hover:text-[#57CCB1]"
+               id="menu-laporan">
+              <i data-lucide="clipboard-list" class="h-5 w-5"></i>
+              <span class="text-sm font-semibold">Laporan Kinerja & Lembur</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    
+    <div class="flex-1 flex flex-col min-h-screen">
+      <!-- topbar -->
+      <header class="bg-white border-b border-[#E0E0E0] shadow-sm flex items-center justify-between h-20 px-8 w-full">
+        <div class="flex items-center gap-4">
+          <span class="text-lg font-semibold text-[#404040]">
+            Selamat datang, <span class="font-semibold">Moni Roy</span>
+          </span>
+        </div>
+
+        <div class="flex items-center gap-8">
+
+          <div class="relative">
+              <i data-lucide="bell-dot" class="h-5 w-5 m-1 text-[#3dd6bb]" ></i>
+          </div>    
+
+          <div class="relative group flex items-center">
+            <i data-lucide="calendar-days" class="h-5 w-5 text-[#3dd6bb]"></i> 
+            <span id="calendar-label" class="text-gray-700 font-semibold text-sm ml-2">Sep 2025</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" class="w-10 h-10 rounded-full" />
+            <div class="flex flex-col fon-">
+              <span class="font-bold text-sm  text-gray-800">Moni Roy</span>
+              <div class="dropdown dropdown-end">
+                <label class="flex items-center gap-1 text-gray-500 text-xs ">
+                  Admin+
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- main konten -->
+      <main class="grid grid-cols-12 auto-rows-min gap-4 m-5">
+        <div class=" bg-white shadow p-4 col-span-8 rounded-xl">
+          <h2 class="text-base font-bold mb-4 text-[#2D7263] pl-3">Kehadiran Bulanan</h2>
+          <div class="flex justify-between items-center relative h-[250px] m-5 ">
+            <canvas id="kehadiranChart" ></canvas>
+          </div>
+          <div class="flex justify-between items-center text-xs text-gray-600 mt-2 px-2">
+            <span>On-time : 50%</span>
+            <span>Rata-rata keterlambatan : 5 menit</span>
+            <span>Rata-rata cuti per bulan : 2 hari</span>
+          </div>
+        </div>
+
+        <div class="bg-white shadow p-4 col-span-4 rounded-xl flex flex-col justify-between">
+          <h2 class="text-base text-[#2D7263] font-bold mb-5 pl-4 ">Statistik Pegawai Baru dan <br> Resign</h2>
+          <div class="flex-1 relative  !w-[250px] justify-center items-center ml-4">
+            <canvas id="pegawaiChart" class="absolute inset-0 h-full"></canvas>
+          </div>
+          <div id="pegawaiLegend" class="text-center"></div>
+        </div>
+
+
+        <div class=" bg-white shadow p-4 col-span-6 rounded-xl">
+          <h2 class="text-base font-bold mb-2 text-[#2D7263]">Produktivitas per devisi </h2>
+          <div class="relative !h-[180px]">
+            <canvas id="produktivitasChart"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 col-span-6 !h-[250px] ">
+        <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
+          <div class="relative w-[45px] h-[45px] shrink-0">
+            <canvas id="chartTotalPegawai" class="!w-[45px] !h-[45px]"></canvas>
+            <span class="absolute inset-0 flex items-center justify-center font-bold text-gray-900 text-xs">129</span>
+          </div>
+          <div class="flex flex-col leading-tight">
+            <p class="text-[10px] text-[#82C9B2] font-medium">+5 bulan ini</p>
+            <h3 class="text-[12px] font-semibold text-gray-900">Total Pegawai</h3>
+          </div>
+        </div>
+          <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
+            <div class="relative w-[45px] h-[45px] shrink-0">
+            
+              <canvas id="chartHadir"></canvas>
+              <span class="absolute inset-0 flex items-center justify-center font-bold text-gray-900 text-xs">76</span>
+            </div>
+            <div class="flex flex-col leading-tight">
+              <p class="text-[10px] text-[#82C9B2] font-medium">50% on-time</p>
+              <h3 class="text-[12px] font-semibold text-gray-900">Hadir Hari Ini</h3>
+            </div>
+          </div>
+        
+          <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
+            <div class="relative w-[45px] h-[45px] shrink-0">
+              <canvas id="chartIzin"></canvas>
+              <span class="absolute inset-0 flex items-center justify-center font-bold text-gray-900 text-xs">10</span>
+            </div>
+            <div class="flex flex-col leading-tight">
+              <p class="text-[10px] text-[#82C9B2] font-medium">Beban shift</p>
+              <h3 class="text-[12px] font-semibold text-gray-900">Izin / Sakit</h3>
+            </div>
+          </div>
+        
+          <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
+            <div class="relative w-[45px] h-[45px] shrink-0">
+              <canvas id="chartCuti"></canvas>
+              <span class="absolute inset-0 flex items-center justify-center font-bold text-gray-900 text-xs">8</span>
+            </div>
+            <div class="flex flex-col leading-tight">
+              <p class="text-[10px] text-[#82C9B2] font-medium">3 minggu ini</p>
+              <h3 class="text-[12px] font-semibold text-gray-900">Cuti Aktif</h3>
+            </div>
+          </div>
+        
+          <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
+            <div class="relative w-[45px] h-[45px] shrink-0">
+              <canvas id="chartPegawaiBaru"></canvas>
+              <span class="absolute inset-0 flex items-center justify-center font-bold text-gray-900 text-xs">5</span>
+            </div>
+            <div class="flex flex-col leading-tight">
+              <p class="text-[10px] text-[#82C9B2] font-medium">3 on-boarding</p>
+              <h3 class="text-[12px] font-semibold text-gray-900">Pegawai Baru</h3>
+            </div>
+          </div>
+          
+          <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
+            <div class="relative w-[45px] h-[45px] shrink-0">
+              <canvas id="chartKontrak"></canvas>
+              <span class="absolute inset-0 flex items-center justify-center font-bold text-gray-900 text-xs">10</span>
+            </div>
+            <div class="flex flex-col leading-tight">
+              <p class="text-[10px] text-[#82C9B2] font-medium">Butuh review</p>
+              <h3 class="text-[12px] font-semibold text-gray-900">Kontrak Habis</h3>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
