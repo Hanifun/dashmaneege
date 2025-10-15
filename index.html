@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="css/style.css" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <script type="module" src="https://unpkg.com/cally"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Dashboard</title>
 </head>
 <body class="bg-[#F5FAF6] min-h-screen overflow-x-hidden">
@@ -81,7 +79,7 @@
               <span class="font-bold text-sm  text-gray-800">Moni Roy</span>
               <div class="dropdown dropdown-end">
                 <label class="flex items-center gap-1 text-gray-500 text-xs ">
-                  Admin+
+                  Admin
                 </label>
               </div>
             </div>
@@ -118,7 +116,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 col-span-6 !h-[250px] ">
+        <div class="grid grid-cols-2 gap-4 col-span-6 ">
         <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
           <div class="relative w-[45px] h-[45px] shrink-0">
             <canvas id="chartTotalPegawai" class="!w-[45px] !h-[45px]"></canvas>
@@ -173,7 +171,7 @@
               <h3 class="text-[12px] font-semibold text-gray-900">Pegawai Baru</h3>
             </div>
           </div>
-          
+
           <div class=" bg-white shadow flex items-center gap-3 p-3 rounded-2xl h-[70px]">
             <div class="relative w-[45px] h-[45px] shrink-0">
               <canvas id="chartKontrak"></canvas>
